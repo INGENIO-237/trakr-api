@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: trakr-api
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:h2:mem:trakr_api_test_db
+    username: sa
+    password: trakr_test_db_password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
