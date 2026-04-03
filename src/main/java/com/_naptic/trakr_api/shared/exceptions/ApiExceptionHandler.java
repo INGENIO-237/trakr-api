@@ -1,7 +1,7 @@
 package com._naptic.trakr_api.shared.exceptions;
 
-import com.rinoov.api.shared.exceptions.core.ApiException;
-import com.rinoov.api.shared.exceptions.core.ExceptionResponse;
+import com._naptic.trakr_api.shared.exceptions.core.ApiException;
+import com._naptic.trakr_api.shared.exceptions.core.ExceptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

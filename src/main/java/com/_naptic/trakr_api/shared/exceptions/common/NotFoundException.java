@@ -1,6 +1,6 @@
 package com._naptic.trakr_api.shared.exceptions.common;
 
-import com.rinoov.api.shared.exceptions.core.ApiException;
+import com._naptic.trakr_api.shared.exceptions.core.ApiException;
 import org.springframework.http.HttpStatus;
 
 public class NotFoundException extends ApiException {
