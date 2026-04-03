@@ -12,5 +12,7 @@ public interface UserService {
 
     User getExistingUser(String userId);
 
+    User getExistingUserByEmail(String email);
+
     void ensureEmailNotInUse(String email);
 }

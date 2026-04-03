@@ -97,6 +97,29 @@ class UserServiceImplTest {
     }
 
     @Test
+    void shouldGetExistingUserByEmail() {
+        User user = User.builder().email(faker.internet().emailAddress()).build();
+
+        when(repository.findByEmail(anyString())).thenReturn(Optional.of(user));
+
+        User response = service.getExistingUserByEmail(user.getEmail());
+
+        assertNotNull(response);
+        assertEquals(response.getEmail(), user.getEmail());
+    }
+
+    @Test
+    void shouldThrowNotFoundUserByEmail() {
+        String email = faker.internet().emailAddress();
+
+        when(repository.findByEmail(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.getExistingUserByEmail(email));
+
+        assertEquals("User not found", exception.getMessage());
+    }
+
+    @Test
     void shouldUpdateUser() {
         UpdateUserDto dto = UpdateUserDto.builder().email(faker.internet().emailAddress()).fullName(faker.name().fullName()).build();
 

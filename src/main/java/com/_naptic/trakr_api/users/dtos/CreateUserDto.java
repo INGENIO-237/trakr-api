@@ -6,7 +6,7 @@ import lombok.Builder;
 
 @Builder
 public record CreateUserDto(
-        @NotBlank(message = "Email must be provided") @Email(message = "Invalid email format") String email,
+        @NotBlank(message = "Email must be provided") @Email(message = "Invalid email address format") String email,
 
         @NotBlank(message = "Full name must be provided") String fullName,
 

@@ -54,11 +54,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getExistingUserByEmail(String email) {
+        return repository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    @Override
     public void ensureEmailNotInUse(String email) {
         Optional<User> existingUser = repository.findByEmail(email);
 
         if (existingUser.isPresent()) throw new ConflictException("Email address already in use");
     }
-
 
 }
