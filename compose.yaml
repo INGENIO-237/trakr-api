@@ -1,0 +1,31 @@
+name: trakr
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: trakr_db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - trakr_data:/var/lib/postgresql/data
+    networks:
+      - internal_network
+  maildev:
+    image: maildev/maildev:latest
+    container_name: maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - internal_network
+
+volumes:
+  trakr_data:
+
+networks:
+  internal_network:
+    driver: bridge
