@@ -10,6 +10,7 @@ import com._naptic.trakr_api.users.dtos.UpdateUserDto;
 import com._naptic.trakr_api.users.dtos.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,12 +22,19 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse create(CreateUserDto dto) {
-        this.ensureEmailNotInUse(dto.email());
+        this.ensureEmailNotInUse(dto.getEmail());
 
         User entity = mapper.toEntity(dto);
+
+        if (dto.getPassword() != null) {
+            String encodedPwd = passwordEncoder.encode(dto.getPassword());
+
+            dto.setPassword(encodedPwd);
+        }
 
         User savedUser = repository.save(entity);
 
@@ -37,8 +45,14 @@ public class UserServiceImpl implements UserService {
     public UserResponse update(String userId, UpdateUserDto dto) {
         User existingUser = getExistingUser(userId);
 
-        if(dto.email() != null) {
-            this.ensureEmailNotInUse(dto.email());
+        if (dto.getEmail() != null) {
+            this.ensureEmailNotInUse(dto.getEmail());
+        }
+
+        if (dto.getPassword() != null) {
+            String encodedPwd = passwordEncoder.encode(dto.getPassword());
+
+            dto.setPassword(encodedPwd);
         }
 
         mapper.updateEntity(dto, existingUser);
