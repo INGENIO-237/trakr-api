@@ -24,3 +24,5 @@ spring:
           auth: false
           starttls:
             enable: false
+jwt:
+  secret: T7yGBadFcxSzFr9bZRCc9ZMEh/dbb0Rr17mInMX6Nxw=
