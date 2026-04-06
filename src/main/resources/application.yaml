@@ -33,3 +33,6 @@ spring:
             enable: true
 server:
   shutdown: graceful
+
+jwt:
+  secret: ${JWT_SECRET}

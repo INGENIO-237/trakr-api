@@ -28,13 +28,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse create(CreateUserDto dto) {
         this.ensureEmailNotInUse(dto.getEmail());
 
+        String encodedPwd = passwordEncoder.encode(dto.getPassword());
+
+        dto.setPassword(encodedPwd);
         User entity = mapper.toEntity(dto);
-
-        if (dto.getPassword() != null) {
-            String encodedPwd = passwordEncoder.encode(dto.getPassword());
-
-            dto.setPassword(encodedPwd);
-        }
 
         User savedUser = repository.save(entity);
 
