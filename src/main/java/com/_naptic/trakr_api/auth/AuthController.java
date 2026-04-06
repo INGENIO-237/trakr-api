@@ -1,6 +1,8 @@
 package com._naptic.trakr_api.auth;
 
 import com._naptic.trakr_api.auth.dtos.ForgotPasswordRequestDto;
+import com._naptic.trakr_api.auth.dtos.LoginRequestDto;
+import com._naptic.trakr_api.auth.dtos.LoginResponse;
 import com._naptic.trakr_api.auth.dtos.ResetPasswordDto;
 import com._naptic.trakr_api.auth.services.AuthService;
 import com._naptic.trakr_api.shared.responses.CustomApiResponse;
@@ -20,6 +22,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService service;
+
+    @PostMapping("/login")
+    @Operation(summary = "Log in a user")
+    public ResponseEntity<CustomApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequestDto dto) {
+        LoginResponse response = service.login(dto);
+
+        return WrappedResponse.of(response, "User logged in successfully");
+    }
 
     @PostMapping("/register")
     @Operation(summary = "Register a user")

@@ -1,4 +1,4 @@
-package com._naptic.trakr_api.users.dtos;
+package com._naptic.trakr_api.auth.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,14 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserDto {
-    @NotBlank(message = "Email must be provided")
-    @Email(message = "Invalid email address format")
+public class LoginRequestDto {
+    @NotBlank(message = "Email address is required")
+    @Email(message = "Invalid email address format provided")
     private String email;
 
-    @NotBlank(message = "Full name must be provided")
-    private String fullName;
-
-    @NotBlank(message = "Password must be provided")
+    @NotBlank(message = "Password is required")
     private String password;
 }

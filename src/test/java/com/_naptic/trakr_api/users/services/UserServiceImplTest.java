@@ -38,9 +38,9 @@ class UserServiceImplTest {
     void shouldCreateUser() {
         CreateUserDto dto = CreateUserDto.builder().email(faker.internet().emailAddress()).fullName(faker.name().fullName()).password(faker.internet().password()).build();
 
-        User entity = User.builder().email(dto.email()).password(dto.password()).fullName(dto.fullName()).build();
+        User entity = User.builder().email(dto.getEmail()).password(dto.getPassword()).fullName(dto.getFullName()).build();
 
-        User savedUser = User.builder().id(getId()).email(dto.email()).fullName(dto.fullName()).password(dto.password()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        User savedUser = User.builder().id(getId()).email(dto.getEmail()).fullName(dto.getFullName()).password(dto.getPassword()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         UserResponse userResponse = UserResponse.builder().id(savedUser.getId()).email(savedUser.getEmail()).fullName(savedUser.getFullName()).createdAt(savedUser.getCreatedAt()).updatedAt(savedUser.getUpdatedAt()).build();
 
@@ -55,8 +55,8 @@ class UserServiceImplTest {
         assertNotNull(response.getId());
         assertNotNull(response.getCreatedAt());
         assertNotNull(response.getUpdatedAt());
-        assertEquals(response.getEmail(), dto.email());
-        assertEquals(response.getFullName(), dto.fullName());
+        assertEquals(response.getEmail(), dto.getEmail());
+        assertEquals(response.getFullName(), dto.getFullName());
 
     }
 
@@ -64,7 +64,7 @@ class UserServiceImplTest {
     void shouldThrowConflictException() {
         CreateUserDto dto = CreateUserDto.builder().email(faker.internet().emailAddress()).fullName(faker.name().fullName()).password(faker.internet().password()).build();
 
-        User existingUser = User.builder().id(getId()).email(dto.email()).fullName(dto.fullName()).password(dto.password()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        User existingUser = User.builder().id(getId()).email(dto.getEmail()).fullName(dto.getFullName()).password(dto.getPassword()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         when(repository.findByEmail(anyString())).thenReturn(Optional.of(existingUser));
 
@@ -125,9 +125,9 @@ class UserServiceImplTest {
 
         User existingUser = User.builder().id(getId()).fullName(faker.name().fullName()).email(faker.internet().emailAddress()).build();
 
-        User updatedUser = User.builder().id(existingUser.getId()).email(dto.email()).fullName(dto.fullName()).build();
+        User updatedUser = User.builder().id(existingUser.getId()).email(dto.getEmail()).fullName(dto.getFullName()).build();
 
-        UserResponse userResponse = UserResponse.builder().id(existingUser.getId()).email(dto.email()).fullName(dto.fullName()).build();
+        UserResponse userResponse = UserResponse.builder().id(existingUser.getId()).email(dto.getEmail()).fullName(dto.getFullName()).build();
 
         when(repository.findById(anyString())).thenReturn(Optional.of(existingUser));
         when(mapper.toResponse(any(User.class))).thenReturn(userResponse);
@@ -136,8 +136,8 @@ class UserServiceImplTest {
         UserResponse response = service.update(existingUser.getId(), dto);
 
         assertNotNull(response);
-        assertEquals(response.getEmail(), dto.email());
-        assertEquals(response.getFullName(), dto.fullName());
+        assertEquals(response.getEmail(), dto.getEmail());
+        assertEquals(response.getFullName(), dto.getFullName());
         assertNotEquals(response.getEmail(), existingUser.getEmail());
         assertNotEquals(response.getFullName(), existingUser.getFullName());
     }

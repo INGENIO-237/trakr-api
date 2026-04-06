@@ -1,8 +1,20 @@
 package com._naptic.trakr_api.users.dtos;
 
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Builder
-public record UpdateUserDto(@Email(message = "Invalid email address format") String email, String fullName, String password) {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateUserDto {
+    @Email(message = "Invalid email address format")
+    private String email;
+
+    private String fullName;
+
+    private String password;
 }
