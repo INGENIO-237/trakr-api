@@ -15,5 +15,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Income extends Transaction {
+    public static final String ID_PREFIX = "inc";
+
     private IncomeSource source;
+
+    @Override
+    protected String getIdPrefix() {
+        return ID_PREFIX;
+    }
 }

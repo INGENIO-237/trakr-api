@@ -10,9 +10,4 @@ create table
         primary key (id)
     );
 
-alter table if exists income
-drop constraint if exists UKpw0rpfltx9r2hkyicpwovd6qf;
-
-alter table if exists income add constraint UKpw0rpfltx9r2hkyicpwovd6qf unique (user_id);
-
 alter table if exists income add constraint FKnuw53hk0hha02go6e3itfne7t foreign key (user_id) references users;
