@@ -38,6 +38,7 @@ public class IncomeServiceImpl extends TransactionService implements IncomeServi
 
         return mapper.toResponse(savedIncome);
     }
+
     @Override
     public Page<IncomeResponse> findAll(GetIncomeQuery query) {
         User user = currentUserService.getUser();
@@ -50,8 +51,4 @@ public class IncomeServiceImpl extends TransactionService implements IncomeServi
         LocalDateTime[] range = resolveRange(query);
         return mapper.toResponses(repository.findByUserAndCreatedAtBetween(user, range[0], range[1], pageable));
     }
-
-
-
-
 }

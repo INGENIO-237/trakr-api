@@ -28,9 +28,8 @@ public class IncomeController {
     public ResponseEntity<CustomApiResponse<IncomeResponse>> register(@Valid @RequestBody RegisterIncomeDto dto) {
         IncomeResponse response = service.register(dto);
 
-        return WrappedResponse.of(response, "Income registered successfully", HttpStatus.CREATED);
+        return WrappedResponse.of(response, "Expense registered successfully", HttpStatus.CREATED);
     }
-
 
     @GetMapping
     @Operation(summary = "Retrieve a paginated list of incomes")

@@ -13,6 +13,4 @@ import lombok.experimental.SuperBuilder;
 public class RegisterTransactionDto {
     @NotNull(message = "Amount is required")
     private Long amount;
-
-    private String description;
 }
